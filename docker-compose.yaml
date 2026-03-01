@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   kafka:
-    image: confluentinc/cp-kafka:8.0.4
+    image: confluentinc/cp-kafka:7.8.3
     container_name: kafka
 
     healthcheck:
@@ -45,6 +45,10 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+    depends_on:
+      kafka:
+        condition: service_healthy
 
 
   mongodb:
