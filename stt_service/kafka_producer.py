@@ -1,0 +1,25 @@
+from confluent_kafka import Producer
+import json
+from config import Config
+
+logger = Config.logger
+
+
+producer = Producer(Config.producer_config)
+
+def callback(err, msg):
+    if err:
+        logger.error(err)
+    else:
+        logger.info(f'message {msg.value} pushed successfully to kafka on topic {Config.kafka_topic}')
+
+
+def publish_message(message: dict):
+    value = json.dumps(message).encode()
+
+    producer.produce(
+        topic=Config.kafka_topic,
+        value=value,
+        callback=callback
+    )
+    producer.flush()
