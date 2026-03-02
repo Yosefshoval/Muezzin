@@ -120,6 +120,9 @@ services:
     environment:
       KAFKA_URL: "kafka:9092"
       KAFKA_TOPIC: "audio_file_metadata"
+
+      ELASTIC_URL: 'http://elasticsearch:9200'
+
       podcasts_folder: "../audio"
 
     volumes:
@@ -138,7 +141,7 @@ services:
       MONGO_USER: ''
       MONGO_PASSWORD: ''
 
-      ELASTIC_URL: ''
+      ELASTIC_URL: 'http://elasticsearch:9200'
       ELASTIC_INDEX: ''
 
 volumes:

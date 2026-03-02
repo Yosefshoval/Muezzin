@@ -7,7 +7,7 @@ class Logger:
     _logger = None
 
     @classmethod
-    def get_logger(cls, name="Muezzin", es_host="your_es_host_name",index="your_index_logs_name", level=logging.DEBUG):
+    def get_logger(cls, name="Muezzin", es_host="elastic_host",index="logs_index", level=logging.DEBUG):
         if cls._logger:
             return cls._logger
 

@@ -1,6 +1,6 @@
 import os
 from os import getenv
-import logging
+from logger import Logger
 
 
 class Config:
@@ -11,5 +11,6 @@ class Config:
         'bootstrap.servers' : os.getenv('KAFKA_URL')
     }
 
-    logger = logging.getLogger('metadata extractor')
-    logging.basicConfig(level=logging.INFO)
+    logger = Logger.get_logger(name=' metadata extractor ', es_host=Config.elastic_host)
+
+    elastic_host = os.getenv('ELASTIC_URL')
