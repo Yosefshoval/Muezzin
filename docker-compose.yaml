@@ -119,10 +119,11 @@ services:
 
     environment:
       KAFKA_URL: "kafka:9092"
-      KAFKA_TOPIC: "" # TODO
+      KAFKA_TOPIC: "audio_file_metadata"
+      podcasts_folder: "../audio"
 
     volumes:
-      - ${podcasts_folder}:/data/audio
+      - ${local_podcasts_folder}:/audio
 
 
 volumes:

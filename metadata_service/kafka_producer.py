@@ -6,6 +6,7 @@ logger = Config.logger
 
 
 producer = Producer(Config.producer_config)
+logger.info('Producer created')
 
 def callback(err, msg):
     if err:

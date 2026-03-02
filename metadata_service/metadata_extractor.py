@@ -14,7 +14,3 @@ def get_metadata(file : Path):
         'size' : file.stat().st_size,
         'suffix' : file.suffix
     }
-
-
-x = get_metadata(Path(r"C:\podcasts\download (8).wav"))
-print(x)
