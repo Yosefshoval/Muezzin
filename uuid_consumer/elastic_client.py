@@ -1,8 +1,25 @@
 from elasticsearch import Elasticsearch
+from config import Config
 
+
+logger = Config.logger
 
 
 class ElasticClient:
     def __init__(self):
-        es = Elasticsearch
+        self.elastic_client = Elasticsearch(Config.elastic_url)
+        self.index = Config.elastic_index
+        self.elastic_client.create(
+            index=self.index
+        )
+
+    def insert_file(self, file_id, metadata):
+        response = self.elastic_client.update(
+            index=self.index,
+            id=file_id,
+            doc=metadata
+        )
+
+        return response
+
 
