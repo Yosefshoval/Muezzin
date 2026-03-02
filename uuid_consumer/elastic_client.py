@@ -19,7 +19,8 @@ class ElasticClient:
             id=file_id,
             doc=metadata
         )
-
+        logger.info(f'file with id {file_id} inserted to elastic search.')
+        logger.info(response.body)
         return response
 
 

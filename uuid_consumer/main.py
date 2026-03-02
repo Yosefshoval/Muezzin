@@ -9,6 +9,18 @@ es = ElasticClient()
 mongodb = MongoDB()
 
 
+
+def get_binary_file(file_path: str) -> bytes:
+    try:
+        with open(file_path, 'rb') as file:
+            content = file.read()
+            logger.info(f'read file {file_path} in binary format')
+        return content
+    except Exception as e:
+        logger.error(e)
+
+
+
 def main():
     logger.info('loop starting...')
     while True:
@@ -19,8 +31,9 @@ def main():
             logger.info('message received')
 
             file_id = str(uuid4())
-            inserted_to_es = es.insert_file(file_id, message)
-            inserted_to_mongo = mongodb.insert_file()
+            es.insert_file(file_id, message)
+            binary_file = get_binary_file(message['file_name'])
+            mongodb.insert_file(binary_file, message)
 
         except Exception as e:
             logger.error(f'{type(e)}: {e}')
