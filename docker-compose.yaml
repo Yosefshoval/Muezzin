@@ -134,15 +134,19 @@ services:
       context: uuid_consumer
 
     environment:
-      KAFKA_URL: ''
-      KAFKA_TOPIC: ''
+      KAFKA_URL: 'kafka:9092'
+      KAFKA_TOPIC: 'audio_file_metadata'
 
-      MONGO_URL: ''
-      MONGO_USER: ''
-      MONGO_PASSWORD: ''
+      MONGO_URL: 'mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/?authSource=admin'
+      MONGO_DATABASE: 'audio_files'
 
       ELASTIC_URL: 'http://elasticsearch:9200'
-      ELASTIC_INDEX: ''
+      ELASTIC_INDEX: 'audio_files_data'
+
+    volumes:
+      - ${local_podcasts_folder}:/audio
+
+
 
 volumes:
   kafka_kraft:

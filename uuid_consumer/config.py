@@ -10,8 +10,6 @@ class Config:
 
     mongo_url = os.getenv('MONGO_URL')
     mongo_database = os.getenv('MONGO_DATABASE')
-    mongo_user = os.getenv('MONGO_USER')
-    mongo_password = os.getenv('MONGO_PASSWORD')
 
     elastic_url = os.getenv('ELASTIC_URL')
     elastic_index = os.getenv('ELASTIC_INDEX')

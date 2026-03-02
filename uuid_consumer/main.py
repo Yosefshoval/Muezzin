@@ -10,7 +10,7 @@ mongodb = MongoDB()
 
 
 
-def get_binary_file(file_path: str) -> bytes:
+def get_binary_file(file_path: str) -> bytes | None:
     try:
         with open(file_path, 'rb') as file:
             content = file.read()
