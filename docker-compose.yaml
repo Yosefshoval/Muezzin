@@ -125,6 +125,20 @@ services:
       - ${podcasts_folder}:/data/audio
 
 
+  uuid_service:
+    build:
+      context: uuid_consumer
+
+    environment:
+      KAFKA_URL: ''
+      KAFKA_TOPIC: ''
+
+      MONGO_URL: ''
+      MONGO_USER: ''
+      MONGO_PASSWORD: ''
+
+      ELASTIC_URL: ''
+
 volumes:
   kafka_kraft:
   mongo_data:
