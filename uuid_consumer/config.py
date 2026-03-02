@@ -2,7 +2,7 @@ import os
 import logging
 from logger import Logger
 
-logger = Logger.get_logger()
+
 
 class Config:
     kafka_url = os.getenv('KAFKA_URL')
@@ -21,5 +21,4 @@ class Config:
         "auto.offset.reset" : "earliest"
     }
 
-    logger = logging.getLogger(" uuid_generator ")
-    logging.basicConfig(level=logging.INFO)
+    logger = Logger.get_logger(name='uuid_service', es_host=elastic_url)
