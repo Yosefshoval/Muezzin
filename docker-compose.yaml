@@ -162,6 +162,22 @@ services:
         condition: service_started
 
 
+  stt_service:
+    build:
+      context: stt_service
+
+    environment:
+      ELASTIC_URL: 'http://elasticsearch:9200'
+      ELASTIC_INDEX: 'audio_files_data'
+
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      uuid_service:
+        condition: service_healthy
+
+
+
 volumes:
   kafka_kraft:
   mongo_data:
