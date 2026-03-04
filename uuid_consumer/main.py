@@ -28,12 +28,16 @@ def main():
             message = get_message()
             if message is None:
                 continue
-            logger.info('message received')
 
-            file_id = str(uuid4())
-            es.insert_file(file_id, message)
-            binary_file = get_binary_file(message['file_name'])
+            message['file_id'] = str(uuid4())
+            logger.info(f'message received. new id: {message['file_id']}')
+            es.insert_file(message['file_id'], message)
+            binary_file = get_binary_file(message['file_path'])
             mongodb.insert_file(binary_file, message)
 
         except Exception as e:
             logger.error(f'{type(e)}: {e}')
+
+
+if __name__ == "__main__":
+    main()

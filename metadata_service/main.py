@@ -3,7 +3,7 @@ from metadata_extractor import get_metadata
 from kafka_producer import publish_message
 from pathlib import Path
 
-logger = Config.logger
+logger = Config.my_logger
 
 def get_metadata_for_files(folder_path: Path):
     logger.info(f'loop starting. follow on folder: {folder_path}. folder exist: {folder_path.exists()}')

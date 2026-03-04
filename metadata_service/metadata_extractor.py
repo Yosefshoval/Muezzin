@@ -2,10 +2,11 @@ from pathlib import Path
 import datetime
 from config import Config
 
-logger = Config.logger
+logger = Config.my_logger
 
 
 def get_metadata(file : Path):
+    print(f'getting_metadata for file: {file}')
     logger.info(f'getting_metadata for file: {file}')
     return {
         'file_name' : file.name,

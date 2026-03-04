@@ -8,6 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-COPY ..logger logger
-
 CMD ["python", "main.py"]

@@ -81,11 +81,9 @@ services:
       - "9200:9200"
 
     healthcheck:
-      test: [ "CMD-SHELL",
-              "curl -s -u http://elasticsearch:9200/_cluster/health 
-              | grep -q '\\\"status\\\":\\\"green\\\"\\|\\\"status\\\":\\\"yellow\\\"'" ]
-      interval: 10s
-      timeout: 10s
+      test: [ "CMD-SHELL", "curl -s http://elasticsearch:9200/_cluster/health | grep -q '\\\"status\\\":\\\"green\\\"\\|\\\"status\\\":\\\"yellow\\\"'" ]
+      interval: 5s
+      timeout: 30s
       retries: 10
       start_period: 60s
 
@@ -103,6 +101,7 @@ services:
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - xpack.security.enable=false
 
     ports:
       - "5601:5601"
@@ -127,6 +126,13 @@ services:
 
     volumes:
       - ${local_podcasts_folder}:/audio
+      - ./shared:/app/logger
+
+    depends_on:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
 
 
   uuid_service:
@@ -145,7 +151,15 @@ services:
 
     volumes:
       - ${local_podcasts_folder}:/audio
+      - ./shared:/app/logger
 
+    depends_on:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      metadata_service:
+        condition: service_started
 
 
 volumes:

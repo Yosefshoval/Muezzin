@@ -1,7 +1,5 @@
 import os
-import logging
-from logger import Logger
-
+from logger.logger import Logger
 
 
 class Config:
@@ -20,4 +18,4 @@ class Config:
         "auto.offset.reset" : "earliest"
     }
 
-    logger = Logger.get_logger(name='uuid_service', es_host=elastic_url)
+    logger = Logger.get_logger(name=' uuid_service ', es_host=elastic_url)
