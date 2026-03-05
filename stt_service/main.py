@@ -1,5 +1,6 @@
 from config import Config
 from elastic import update_file_metadata
+from kafka_consumer import get_message
 from stt import extract_text
 from pathlib import Path
 
@@ -13,22 +14,28 @@ def get_binary_file(file: str):
 
 
 
-def main(folder_path: Path):
-
-    for file in folder_path.glob("**/*"):
+def main():
+    while True:
         try:
-            text = extract_text(str(file))
+            message = get_message()
+            if message is None:
+                continue
 
-            file_id = hash(get_binary_file(str(file)))
+            logger.info('message received')
 
-            logger.info(f'file path: {file}. file id: {file_id}')
+            text = extract_text(message['file_path'])
+            file_id = message['file_id']
+
+            logger.info(f'file path: {message["file_path"]}. file id: {file_id}')
+
             updated_status = update_file_metadata(f'{file_id}', text)
-
-            logger.info(f'file {file} handled successfully')
             logger.info(f'updated status: {updated_status}')
+            logger.info(f'file {message["file_path"]} handled successfully')
+
         except Exception as e:
-            logger.error(e)
+            logger.error(f'{type(e)}: {e}')
+
 
 
 if __name__ == "__main__":
-    main(Path(Config.audio_folder_path))
+    main()
