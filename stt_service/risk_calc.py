@@ -41,8 +41,8 @@ def risk_rank(lower_text: str):
 
     logger.info(f'words from list exist in the text: {counter}')
 
-    if counter <= 5:
+    if counter <= 8:
         return "none"
-    if counter <= 12:
+    if counter <= 20:
         return "medium"
     return "high"
