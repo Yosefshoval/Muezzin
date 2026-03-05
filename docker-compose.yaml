@@ -142,6 +142,7 @@ services:
     environment:
       KAFKA_URL: 'kafka:9092'
       KAFKA_TOPIC: 'audio_file_metadata'
+      KAFKA_PRODUCE_TOPIC: 'files_metadata_id'
 
       MONGO_URL: 'mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/?authSource=admin'
       MONGO_DATABASE: 'audio_files'
@@ -167,6 +168,9 @@ services:
       context: stt_service
 
     environment:
+      KAFKA_URL: 'kafka:9092'
+      KAFKA_TOPIC: 'files_metadata_id'
+
       audio_folder_path: "../audio"
 
       ELASTIC_URL: 'http://elasticsearch:9200'
@@ -176,9 +180,7 @@ services:
       elasticsearch:
         condition: service_healthy
       uuid_service:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
+        condition: service_started
 
     volumes:
       - ${local_podcasts_folder}:/audio

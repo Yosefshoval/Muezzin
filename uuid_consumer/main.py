@@ -1,5 +1,6 @@
 from config import Config
 from kafka_consumer import get_message
+from kafka_producer import publish
 from elastic_client import ElasticClient
 from mongo_client import MongoDB
 from uuid import uuid4
@@ -31,10 +32,15 @@ def main():
 
             logger.info(f'message received.')
             binary_file = get_binary_file(message['file_path'])
+
             message['file_id'] = str(hash(binary_file))
-            logger.info(f'new id: {message['file_id']}')
+            logger.info(f'new id: {message["file_id"]}')
+
+            publish(message)
+
             es.insert_file(message['file_id'], message)
             mongodb.insert_file(binary_file, message)
+
 
         except Exception as e:
             logger.error(f'{type(e)}: {e}')
