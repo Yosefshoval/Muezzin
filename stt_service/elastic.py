@@ -7,7 +7,9 @@ es = Elasticsearch(Config.elastic_url)
 logger.info(f'Elastic client created and connected: {es.ping()}')
 
 
-def update_file_metadata(file_id: str, new_metadata: dict):
+def update_file_metadata(file_id: str, text: str):
+    file_data = es.search(index=Config.elastic_index, query={ "query" : { "term" : { "file_id": file_id } } } )
+    file_data['text'] = text
     response = es.update(
         index=Config.elastic_index,
         id=file_id,
