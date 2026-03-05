@@ -2,6 +2,7 @@ from config import Config
 from elastic import update_file_metadata
 from kafka_consumer import get_message
 from stt import extract_text
+from risk_calc import risk_rank, risk_percent
 from pathlib import Path
 
 logger = Config.logger
@@ -24,6 +25,10 @@ def main():
             logger.info('message received')
 
             text = extract_text(message['file_path'])
+
+            percent_bds = risk_percent(text.lower())
+            level_threat_bds = risk_rank(text.lower())
+
             file_id = message['file_id']
 
             logger.info(f'file path: {message["file_path"]}. file id: {file_id}')
