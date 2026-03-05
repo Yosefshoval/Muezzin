@@ -26,6 +26,7 @@ def main():
 
             text = extract_text(message['file_path'])
 
+            message['text'] = text
             message['percent_bds'] = risk_percent(text.lower())
             message['level_threat_bds'] = risk_rank(text.lower())
             message['bds_is'] = True if message['percent_bds'] > 30 else False
@@ -34,7 +35,7 @@ def main():
 
             logger.info(f'file path: {message["file_path"]}. file id: {file_id}')
 
-            updated_status = update_file_metadata(f'{file_id}', text)
+            updated_status = update_file_metadata(f'{file_id}', message)
             logger.info(f'updated status: {updated_status["result"]}')
             logger.info(f'file {message["file_path"]} handled successfully')
 

@@ -1,8 +1,8 @@
 from base64 import b64decode
 import re
-# from config import Config
-#
-# logger = Config.logger
+from config import Config
+
+logger = Config.logger
 
 list1 = ("R2Vub2NpZGUsV2FyIENyaW1lcyxBcGFydGhlaWQsTWFzc2FjcmUsTmFrYmEsRGlzcGxh"
          "Y2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUsT2NjdXBhdGlvbixSZWZ1Z2VlcyxJQ0MsQkRT")
@@ -23,7 +23,10 @@ def risk_percent(lower_text: str):
         counter += len(result)
 
     percent = counter / len(lower_text.split()) * 100
-    return float('%.2f' % percent)
+    reduced_number = float('%.2f' % percent)
+
+    logger.info(f'risk_percent: {reduced_number}')
+    return reduced_number
 
 
 def risk_rank(lower_text: str):
@@ -35,7 +38,9 @@ def risk_rank(lower_text: str):
     for word in list2.strip().split(','):
         if word.lower() in lower_text:
             counter += 1
-    print(counter)
+
+    logger.info(f'words from list exist in the text: {counter}')
+
     if counter <= 5:
         return "none"
     if counter <= 12:
