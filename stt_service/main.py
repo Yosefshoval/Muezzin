@@ -1,12 +1,9 @@
-import speech_recognition as sr
+from config import Config
 
-recognizer_instance = sr.Recognizer()
 
-with sr.AudioFile(my_path) as source:
-    audio = recognizer_instance.record(source)
+def main():
+    pass
 
-try:
-    s = recognizer_instance.recognize_google(audio)
-    print("Text: " + s)
-except Exception as e:
-    print(e)
+
+if __name__ == "main":
+    main()
