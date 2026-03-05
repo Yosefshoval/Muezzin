@@ -10,7 +10,7 @@ class Config:
 
     consumer_config = {
         "bootstrap.servers" : kafka_url,
-        "group.id" : "uuid_service",
+        "group.id" : "stt_service",
         "auto.offset.reset" : "earliest"
     }
 
