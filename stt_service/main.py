@@ -26,8 +26,9 @@ def main():
 
             text = extract_text(message['file_path'])
 
-            percent_bds = risk_percent(text.lower())
-            level_threat_bds = risk_rank(text.lower())
+            message['percent_bds'] = risk_percent(text.lower())
+            message['level_threat_bds'] = risk_rank(text.lower())
+            message['bds_is'] = True if message['percent_bds'] > 30 else False
 
             file_id = message['file_id']
 
