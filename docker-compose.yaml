@@ -167,6 +167,9 @@ services:
       context: stt_service
 
     environment:
+      KAFKA_URL: 'kafka:9092'
+      KAFKA_TOPIC: 'audio_file_metadata'
+
       ELASTIC_URL: 'http://elasticsearch:9200'
       ELASTIC_INDEX: 'audio_files_data'
 
@@ -175,6 +178,11 @@ services:
         condition: service_healthy
       uuid_service:
         condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+    volumes:
+      - ./shared:/app/logger
 
 
 
