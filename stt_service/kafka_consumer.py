@@ -1,5 +1,6 @@
 from confluent_kafka import Consumer
 from config import Config
+import json
 
 logger = Config.logger
 
@@ -9,7 +10,6 @@ logger.info(f'consumer created: {consumer.consumer_group_metadata()}')
 
 def get_message():
     message = consumer.poll(1.0)
-    logger.info('get_message.......')
     if not message:
         return None
     if message.error():

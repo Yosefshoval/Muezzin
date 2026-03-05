@@ -29,7 +29,7 @@ def main():
             logger.info(f'file path: {message["file_path"]}. file id: {file_id}')
 
             updated_status = update_file_metadata(f'{file_id}', text)
-            logger.info(f'updated status: {updated_status}')
+            logger.info(f'updated status: {updated_status["result"]}')
             logger.info(f'file {message["file_path"]} handled successfully')
 
         except Exception as e:
