@@ -11,7 +11,7 @@ class Elastic:
     def exec_query(self, query: dict):
         response = self.client.search(
             index=self.index,
-            query=query
+            body=query
             )
 
         absolut_result = response['hits']['hits']

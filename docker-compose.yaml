@@ -189,9 +189,16 @@ services:
 
   search:
     build:
-      context: .
+      context: searching
+    environment:
+      ELASTIC_URL: 'http://elasticsearch:9200'
+      ELASTIC_INDEX: 'audio_files_data'
 
+    volumes:
+      - ./shared:/app/logger
 
+    ports:
+      - "8080:8080"
 
 volumes:
   kafka_kraft:
