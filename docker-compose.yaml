@@ -187,6 +187,11 @@ services:
       - ./shared:/app/logger
 
 
+  search:
+    build:
+      context: .
+
+
 
 volumes:
   kafka_kraft:
