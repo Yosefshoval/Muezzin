@@ -4,6 +4,8 @@ import dal
 import elastic
 from config import SearchingConfig
 
+elastic_client = elastic.Elastic()
+
 
 app = FastAPI()
 
