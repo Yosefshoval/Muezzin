@@ -14,6 +14,8 @@ class Config:
         "auto.offset.reset" : "earliest"
     }
 
+    is_bds_risk = 10
+
     audio_folder_path = os.getenv('audio_folder_path')
 
     logger = Logger.get_logger(name=' stt_service ', es_host=elastic_url)

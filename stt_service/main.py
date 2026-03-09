@@ -29,7 +29,7 @@ def main():
             message['text'] = text
             message['percent_bds'] = risk_percent(text.lower())
             message['level_threat_bds'] = risk_rank(text.lower())
-            message['bds_is'] = True if message['percent_bds'] > 30 else False
+            message['bds_is'] = True if message['percent_bds'] > Config.is_bds_risk else False
 
             file_id = message['file_id']
 

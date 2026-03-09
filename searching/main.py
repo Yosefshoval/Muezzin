@@ -38,6 +38,16 @@ def query_1():
 
 
 
+@app.get('/avg-precent-dbs')
+def get_precent_average():
+    try:
+        return dal.avg_precent_bds(elastic_client)
+    except Exception as e:
+        logger.error(f'{type(e)} : {e}')
+        raise HTTPException(500, f'{type(e)} : {e}')
+
+
+
 if __name__ == "__main__":
     uvicorn.run(
         app="main:app",

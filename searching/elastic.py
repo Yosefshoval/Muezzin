@@ -8,14 +8,18 @@ class Elastic:
         SearchingConfig.logger.info(f'elasticsearch client created. {self.client.ping()}')
 
 
-    def exec_query(self, query: dict):
+    def exec_query(self, query: dict, agg: bool = False):
         response = self.client.search(
             index=self.index,
             body=query
             )
 
+        if agg:
+            return {"aggregations" : response['aggregations']}
+
         absolut_result = response['hits']['hits']
         SearchingConfig.logger.info(f'response from elastic query. matches: {len(absolut_result)}')
+
         if not absolut_result:
             return None
         return absolut_result
