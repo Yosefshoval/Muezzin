@@ -28,7 +28,7 @@ def get_all_data():
 
 
 @app.get('/query/top-5-terrorists')
-def query_1():
+def top_5():
     try:
         result = dal.top_5_terrorists(elastic_client)
         return result
@@ -38,7 +38,7 @@ def query_1():
 
 
 
-@app.get('/avg-precent-dbs')
+@app.get('/query/avg-precent-dbs')
 def get_precent_average():
     try:
         return dal.avg_precent_bds(elastic_client)
@@ -46,6 +46,15 @@ def get_precent_average():
         logger.error(f'{type(e)} : {e}')
         raise HTTPException(500, f'{type(e)} : {e}')
 
+
+
+@app.get('/query/precent-bds-per-level')
+def precent_bds_per_level():
+    try:
+        return dal.get_precent_per_level(elastic_client)
+    except Exception as e:
+        logger.error(f'{type(e)} : {e}')
+        raise HTTPException(500, f'{type(e)} : {e}')
 
 
 if __name__ == "__main__":

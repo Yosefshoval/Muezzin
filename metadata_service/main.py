@@ -12,8 +12,7 @@ def get_metadata_for_files(folder_path: Path):
             logger.info(f'current file: {file_path}')
             file_metadata = get_metadata(file_path)
             file_metadata['file_path'] = str(file_path)
-            published = publish_message(file_metadata)
-            logger.info(f'message pushed: {published}')
+            publish_message(file_metadata)
 
         except Exception as e:
             logger.error(f'{type(e)}: {e}')

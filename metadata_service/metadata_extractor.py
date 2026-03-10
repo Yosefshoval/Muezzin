@@ -6,12 +6,13 @@ logger = Config.my_logger
 
 
 def get_metadata(file : Path):
-    print(f'getting_metadata for file: {file}')
     logger.info(f'getting_metadata for file: {file}')
-    return {
+    metadata = {
         'file_name' : file.name,
-        'created_at' : str(datetime.datetime.fromtimestamp(file.stat().st_ctime)),
-        'modified_at' : str(datetime.datetime.fromtimestamp(file.stat().st_mtime)),
+        'created_at' : str(datetime.datetime.fromtimestamp(file.stat().st_ctime).strftime("%Y-%m-%d %H:%M:%S")),
+        'modified_at' : str(datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S")),
         'size' : file.stat().st_size,
         'suffix' : file.suffix
     }
+    logger.info(f'metadata: {metadata}')
+    return metadata

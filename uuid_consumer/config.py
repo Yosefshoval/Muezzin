@@ -13,6 +13,30 @@ class Config:
     elastic_url = os.getenv('ELASTIC_URL')
     elastic_index = os.getenv('ELASTIC_INDEX')
 
+    mapping = {
+        "mappings": {
+            "properties": {
+                "bds_is": {"type": "boolean"},
+                "file_id": {"type": "keyword"},
+                "file_name": {"type": "keyword"},
+                "file_path": {"type": "text"},
+                "created_at": {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss||strict_date_optional_time ||epoch_millis"
+                },
+                "modified_at": {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss||strict_date_optional_time ||epoch_millis"
+                },
+                "level_threat_bds": {"type": "keyword"},
+                "percent_bds": {"type": "integer"},
+                "size": {"type": "integer"},
+                "suffix": {"type": "keyword"},
+                "text" : {"type" : "text"}
+            }
+        }
+    }
+
     consumer_config = {
         "bootstrap.servers" : kafka_url,
         "group.id" : "uuid_service",

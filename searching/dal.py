@@ -49,6 +49,31 @@ def avg_precent_bds(client: Elastic):
     result = client.exec_query(query, agg=True)
     return result
 
+
+def get_precent_per_level(client: Elastic):
+    query = {
+        "size" : 0,
+           "aggs" : {
+              "average_precent": {
+                 "terms": {
+                    "field" : "level_threat_bds"
+                    },
+                 "aggs" : {
+                    "risk_avg" : {
+                       "avg" : {
+                           "field" : "percent_bds"
+                       }
+                    }
+                 }
+              }
+           }
+        }
+    result = client.exec_query(query, agg=True)
+    clean_result = result['aggregations']['average_precent']['buckets']
+
+    return clean_result
+
+
 # query_structure = {
 #     "from" : 0,
 #     "size" : 10,
